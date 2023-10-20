@@ -1,0 +1,39 @@
+<!-- <?xml version="1.0" encoding="UTF-8"?> -->
+<matchList>
+    <match>
+        <team1>FC Bayern München</team1>
+        <team1_goal>3</team1_goal>
+        <team2>Eintracht Frankfurt</team2>
+        <team2_goal>1</team2_goal>
+        <kickoff>2022-09-03 11:30:00</kickoff>
+        <seasonId>SE_1</seasonId>
+        <spieltagId>SPT_1</spieltagId>
+    </match>
+    <match>
+        <team1>FC Bayern München</team1>
+        <team1_goal>3</team1_goal>
+        <team2>Eintracht Frankfurt</team2>
+        <team2_goal>1</team2_goal>
+        <kickoff>2022-09-03 11:30:00</kickoff>
+        <seasonId>SE_1</seasonId>
+        <spieltagId>SPT_1</spieltagId>
+    </match>
+    <match>
+        <team1>FC Bayern München</team1>
+        <team1_goal>3</team1_goal>
+        <team2>Eintracht Frankfurt</team2>
+        <team2_goal>1</team2_goal>
+        <kickoff>2022-09-03 11:30:00</kickoff>
+        <seasonId>SE_2</seasonId>
+        <spieltagId>SPT_2</spieltagId>
+    </match>
+    <match>
+        <team1>FC Bayern München</team1>
+        <team1_goal>3</team1_goal>
+        <team2>Eintracht Frankfurt</team2>
+        <team2_goal>1</team2_goal>
+        <kickoff>2022-09-03 11:30:00</kickoff>
+        <seasonId>SE_2</seasonId>
+        <spieltagId>SPT_2</spieltagId>
+    </match>
+</matchList>
