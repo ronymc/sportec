@@ -7,6 +7,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
+import { MatListModule } from '@angular/material/list';
 
 export const matModules = [
   MatFormFieldModule,
@@ -15,6 +16,7 @@ export const matModules = [
   MatDatepickerModule,
   MatNativeDateModule,
   MatButtonModule,
+  MatListModule,
 ];
 
 @NgModule({

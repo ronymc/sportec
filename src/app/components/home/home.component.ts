@@ -1,7 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Season, SpielTag } from 'src/app/model';
+import { MatchData, MatchDataView, Season, SpielTag } from 'src/app/model';
 import { DataFetchService } from 'src/app/services/data-fetch.service';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -25,6 +26,7 @@ export class HomeComponent {
 
   formBuilder = inject(FormBuilder);
   dataFetchService = inject(DataFetchService);
+  $matches: Observable<Map<string, MatchData[]>> = of<Map<string, MatchData[]>>(new Map);
 
   matchSearchform = this.formBuilder.group({
     season: ['', Validators.required],
@@ -32,11 +34,9 @@ export class HomeComponent {
   });
 
   searchFixtures(): void {
-    let {season, spielTag} = this.matchSearchform.value;
-    if(season && spielTag) {
-      this.dataFetchService.getMatches(season, spielTag).subscribe(data => {
-        console.log(data);
-      });
+    let { season, spielTag } = this.matchSearchform.value;
+    if (season && spielTag) {
+      this.$matches = this.dataFetchService.getMatches(season, spielTag)
     }
   }
 }

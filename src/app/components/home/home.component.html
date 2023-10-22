@@ -22,4 +22,8 @@
 
     <button mat-flat-button color="primary" (click)="searchFixtures()">Search</button>
   </form>
+
+  <div *ngIf="$matches | async as matches">
+    <app-match-results [matches]="matches"></app-match-results>
+  </div>
 </div>
