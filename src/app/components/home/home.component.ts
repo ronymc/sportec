@@ -1,13 +1,27 @@
 import { Component, inject } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatchData, Season, SpielTag } from 'src/app/model';
 import { DataFetchService } from 'src/app/services/data-fetch.service';
 import { Observable, map, of, tap } from 'rxjs';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+import { MatchResultsComponent } from '../match-results/match-results.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatchResultsComponent,
+  ],
 })
 export class HomeComponent {
   seasons: Season[] = [
@@ -20,8 +34,6 @@ export class HomeComponent {
     { value: 'SPT_1', displayName: 'Spieltag 1' },
     { value: 'SPT_2', displayName: 'Spieltag 2' },
     { value: 'SPT_3', displayName: 'Spieltag 3' },
-    { value: 'SPT_4', displayName: 'Spieltag 4' },
-    { value: 'SPT_5', displayName: 'Spieltag 5' },
   ];
 
   $matchDataView: Observable<Map<string, MatchData[]>> = of<
