@@ -12,5 +12,40 @@
 }
 
 .matchdata-view {
-    width: 100%;
+    width: 90%;
+}
+
+@media screen and (max-width: 768px){
+    .matchdata-view {
+        width: 100%;
+    }
+
+    .conatiner {
+        margin: 3rem;
+        align-items: stretch;
+    }
+
+    .match-form {
+        flex-direction: column;
+        gap: 0;
+        align-items: center;
+    }
+
+    .mat-mdc-form-field {
+        width: 60%;
+    }
+}
+
+@media screen and (max-width: 425px){
+    .mat-mdc-form-field {
+        width: 80%;
+    }
+
+    .matchdata-view {
+        width: 100%;
+    }
+
+    .conatiner {
+        margin: 1.5rem;
+    }
 }
