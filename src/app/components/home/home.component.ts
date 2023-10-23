@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatchData, Season, SpielTag } from 'src/app/model';
 import { DataFetchService } from 'src/app/services/data-fetch.service';
-import { Observable, map, of } from 'rxjs';
+import { Observable, map, of, tap } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -17,11 +17,11 @@ export class HomeComponent {
   ];
 
   spielTags: SpielTag[] = [
-    { value: 'SPT_1', displayName: 'SpielTag 1' },
-    { value: 'SPT_2', displayName: 'SpielTag 2' },
-    { value: 'SPT_3', displayName: 'SpielTag 3' },
-    { value: 'SPT_4', displayName: 'SpielTag 4' },
-    { value: 'SPT_5', displayName: 'SpielTag 5' },
+    { value: 'SPT_1', displayName: 'Spieltag 1' },
+    { value: 'SPT_2', displayName: 'Spieltag 2' },
+    { value: 'SPT_3', displayName: 'Spieltag 3' },
+    { value: 'SPT_4', displayName: 'Spieltag 4' },
+    { value: 'SPT_5', displayName: 'Spieltag 5' },
   ];
 
   $matchDataView: Observable<Map<string, MatchData[]>> = of<

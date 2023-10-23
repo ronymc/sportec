@@ -12,9 +12,6 @@ import { MatListModule } from '@angular/material/list';
 export const matModules = [
   MatFormFieldModule,
   MatSelectModule,
-  MatInputModule,
-  MatDatepickerModule,
-  MatNativeDateModule,
   MatButtonModule,
   MatListModule,
 ];

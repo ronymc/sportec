@@ -8,7 +8,7 @@ import { MatchData } from 'src/app/model';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MatchResultsComponent {
-  @Input() matchDataView:Map<string, MatchData[]> = new Map;
+  @Input({required: true}) matchDataView:Map<string, MatchData[]> = new Map;
 
   // Workaround to maintain insertion order of Map keys in ngFor
   asIsOrder(a: any, b: any) {
