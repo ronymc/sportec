@@ -1,23 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Component, Input } from '@angular/core';
-
 import { HomeComponent } from './home.component';
 import { DataFetchService } from 'src/app/services/data-fetch.service';
 import { of } from 'rxjs';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
-import { ReactiveFormsModule } from '@angular/forms';
-import { MatchData } from 'src/app/model';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-@Component({
-  selector: 'app-match-results',
-  template: `<div></div>`,
-})
-export class FakeMatchResultsComponent {
-  @Input() matchDataView: Map<string, MatchData[]> = new Map();
-}
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -60,15 +46,9 @@ describe('HomeComponent', () => {
   beforeEach(() => {
     mockDataFetchService = jasmine.createSpyObj(['getMatches']);
     TestBed.configureTestingModule({
-      declarations: [HomeComponent, FakeMatchResultsComponent],
+      imports: [HomeComponent, BrowserAnimationsModule],
       providers: [
         { provide: DataFetchService, useValue: mockDataFetchService },
-      ],
-      imports: [
-        MatFormFieldModule,
-        MatSelectModule,
-        ReactiveFormsModule,
-        BrowserAnimationsModule,
       ],
     });
     fixture = TestBed.createComponent(HomeComponent);

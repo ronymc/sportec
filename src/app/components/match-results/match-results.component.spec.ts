@@ -2,7 +2,6 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MatchResultsComponent } from './match-results.component';
 import { By } from '@angular/platform-browser';
-import { MatListModule } from '@angular/material/list';
 import { ChangeDetectionStrategy } from '@angular/core';
 
 describe('MatchResultsComponent', () => {
@@ -47,8 +46,7 @@ describe('MatchResultsComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [MatchResultsComponent],
-      imports: [MatListModule],
+      imports: [MatchResultsComponent],
     }).overrideComponent(MatchResultsComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },
     });
