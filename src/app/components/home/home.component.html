@@ -1,8 +1,8 @@
 <div class="conatiner">
-  <form [formGroup]="matchSearchform">
+  <form [formGroup]="matchSearchform" class="match-form">
     <mat-form-field>
       <mat-label>Choose Season</mat-label>
-      <mat-select formControlName="season">
+      <mat-select formControlName="seasonId">
         <mat-option [value]="season.value" *ngFor="let season of seasons">{{
           season.displayName
         }}</mat-option>
@@ -12,7 +12,7 @@
 
     <mat-form-field>
       <mat-label>Choose Spieltag</mat-label>
-      <mat-select formControlName="spielTag">
+      <mat-select formControlName="spieltagId">
         <mat-option [value]="spielTag.value" *ngFor="let spielTag of spielTags">{{
           spielTag.displayName
         }}</mat-option>
@@ -20,10 +20,10 @@
       <mat-error>required</mat-error>
     </mat-form-field>
 
-    <button mat-flat-button color="primary" (click)="searchFixtures()">Search</button>
+    <button mat-flat-button color="primary" (click)="searchMatches()" class="search-button">Search</button>
   </form>
 
-  <div *ngIf="$matches | async as matches">
-    <app-match-results [matches]="matches"></app-match-results>
+  <div *ngIf="$matchDataView | async as matchDataView" class="matchdata-view">
+    <app-match-results [matchDataView]="matchDataView"></app-match-results>
   </div>
 </div>

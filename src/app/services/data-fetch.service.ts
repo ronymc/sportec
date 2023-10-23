@@ -1,49 +1,41 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, catchError, map, of, switchMap } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, catchError, map, of, switchMap, throwError } from 'rxjs';
 import { parseStringPromise } from 'xml2js';
-import { MatchData, MatchDataView } from '../model';
+import { MatchData, MatchListXML } from '../model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DataFetchService {
-  private matchListUrl = 'assets/data.xml';
+  private matchDataUrl = 'assets/data.xml';
   private http = inject(HttpClient);
 
-  getMatches(seasonId: string, spielTagId: string) {
-    return this.http.get(this.matchListUrl, { responseType: 'text' }).pipe(
+  getMatches(seasonId: string, spielTagId: string): Observable<MatchData[]> {
+    return this.http.get(this.matchDataUrl, { responseType: 'text' }).pipe(
       switchMap((xmlfile: string) =>
         parseStringPromise(xmlfile, { explicitArray: false })
       ),
-      map((data) =>
-        data.matchList.match
-          .filter(
-            (m: MatchData) =>
-              m.seasonId == seasonId && m.spieltagId == spielTagId
-          )
-          .sort(
-            (m1: MatchData, m2: MatchData) =>
-              new Date(m2.kickoff).getTime() - new Date(m1.kickoff).getTime()
-          )
-          .reduce((matchView: Map<string, MatchData[]>, match: MatchData) => {
-            if (matchView.has(match.date)) {
-              matchView.get(match.date)?.push(match);
-            } else {
-              matchView.set(match.date, [match]);
-            }
-            return matchView;
-          }, new Map())
-      )
+      map((data: MatchListXML) =>
+        data.matchList.match.filter(
+          (m: MatchData) => m.seasonId == seasonId && m.spieltagId == spielTagId
+        )
+      ),
+      catchError(this.handleError)
     );
   }
 
-  private handleError<T>(result?: T) {
-    return (error: any): Observable<T> => {
-      console.error(error);
-
-      // Let the app keep running by returning an empty result.
-      return of(result as T);
-    };
+  private handleError(error: HttpErrorResponse) {
+    if (error.status === 0) {
+      console.error('An error occurred:', error.error);
+    } else {
+      console.error(
+        `Backend returned code ${error.status}, body was: `,
+        error.error
+      );
+    }
+    return throwError(
+      () => new Error('Something bad happened; please try again later.')
+    );
   }
 }

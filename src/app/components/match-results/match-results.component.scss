@@ -1,0 +1,26 @@
+.match {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: rgb(47, 50, 51);
+  color: white;
+}
+
+.team {
+  flex: 4;
+}
+
+.home {
+    text-align: right;
+}
+
+.goal {
+  font-size: 24px;
+  font-weight: 700;
+  padding: 10px;
+  background-color: rgb(62, 65, 62);
+}
+
+.kickoff {
+  flex: 1;
+}

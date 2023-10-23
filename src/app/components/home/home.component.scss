@@ -1,3 +1,16 @@
 .conatiner {
-    margin: 20px;
+    margin: 5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.match-form {
+    display: flex;
+    align-items: baseline;
+    gap: 2rem;
+}
+
+.matchdata-view {
+    width: 100%;
 }

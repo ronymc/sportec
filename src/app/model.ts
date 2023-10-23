@@ -21,3 +21,9 @@ export interface MatchData {
 export interface MatchDataView {
   [key: string] : MatchData[];
 }
+
+export interface MatchListXML {
+  matchList: {
+    match: MatchData[]
+  }
+}

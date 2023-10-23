@@ -1,8 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { MatchData, MatchDataView, Season, SpielTag } from 'src/app/model';
+import { MatchData, Season, SpielTag } from 'src/app/model';
 import { DataFetchService } from 'src/app/services/data-fetch.service';
-import { Observable, of } from 'rxjs';
+import { Observable, map, of } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -24,19 +24,51 @@ export class HomeComponent {
     { value: 'SPT_5', displayName: 'SpielTag 5' },
   ];
 
+  $matchDataView: Observable<Map<string, MatchData[]>> = of<
+    Map<string, MatchData[]>
+  >(new Map());
   formBuilder = inject(FormBuilder);
   dataFetchService = inject(DataFetchService);
-  $matches: Observable<Map<string, MatchData[]>> = of<Map<string, MatchData[]>>(new Map);
 
   matchSearchform = this.formBuilder.group({
-    season: ['', Validators.required],
-    spielTag: ['', Validators.required],
+    seasonId: ['', Validators.required],
+    spieltagId: ['', Validators.required],
   });
 
-  searchFixtures(): void {
-    let { season, spielTag } = this.matchSearchform.value;
-    if (season && spielTag) {
-      this.$matches = this.dataFetchService.getMatches(season, spielTag)
+  searchMatches(): void {
+    let { seasonId, spieltagId } = this.matchSearchform.value;
+    if (seasonId && spieltagId) {
+      this.$matchDataView = this.dataFetchService
+        .getMatches(seasonId, spieltagId)
+        .pipe(
+          map((matches: MatchData[]) =>
+            matches
+              // sort matches based on kickoff date and time
+              .sort(
+                (m1: MatchData, m2: MatchData) =>
+                  new Date(m2.kickoff).getTime() -
+                  new Date(m1.kickoff).getTime()
+              )
+              // convert kickoff time to readable format
+              .map((m: MatchData) => {
+                let kickoff = new Date(m.kickoff);
+                m.kickoff = `${kickoff.getHours()}:${kickoff.getMinutes()}`;
+                return m;
+              })
+              // Grouping the matches by date
+              .reduce(
+                (matchView: Map<string, MatchData[]>, match: MatchData) => {
+                  if (matchView.has(match.date)) {
+                    matchView.get(match.date)?.push(match);
+                  } else {
+                    matchView.set(match.date, [match]);
+                  }
+                  return matchView;
+                },
+                new Map()
+              )
+          )
+        );
     }
   }
 }
